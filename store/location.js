@@ -9,23 +9,28 @@ document.addEventListener('alpine:init', () => {
         timeSlots: [
             {
                 start: '10:30',
-                end: '13:00'
+                end: '13:00',
+                price : 500
             },
             {
                 start: '13:30',
-                end: '16:00'
+                end: '16:00',
+                price : 500
             },
             {
                 start: '16:30',
-                end: '18:30'
+                end: '18:30',
+                price : 650
             },
             {
                 start: '19:00',
-                end: '21:30'
+                end: '21:30',
+                price : 800
             },
             {
                 start: '22:00',
-                end: '00:30'
+                end: '00:30',
+                price : 500
             }
         ]
     })
