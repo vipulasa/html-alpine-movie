@@ -6,6 +6,7 @@ document.addEventListener('alpine:init', () => {
         address : 'No. 1, Savoy Building, Galle Road, Colombo 06',
         phone : '+94 11 236 6356',
         seats: 300,
+        image : 'https://media.timeout.com/images/101852201/750/422/image.jpg',
         timeSlots: [
             {
                 start: '10:30',

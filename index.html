@@ -20,6 +20,34 @@
 
         <div>
             <h1 x-text="$store.location.name"></h1>
+            <img x-bind:src="$store.location.image" style="width: 200px;">
+            <ul>
+                <li>Address : <span x-text="$store.location.address"></span></li>
+                <li>Phone : <span x-text="$store.location.phone"></span></li>
+                <li>Total Seats : <span x-text="$store.location.seats"></span></li>
+            </dl>
+        </div>
+
+
+        <div>
+            <h2>Movies</h2>
+            <div style="display: flex;">
+                <template x-for="(movie, index) in $store.movie.movies">
+                    <div>
+                        <h3 x-text="movie.Title"></h3>
+                        <img x-bind:src="movie.Image" style="width: 200px;">
+                        <p x-text="movie.Description"></p>
+                        <a x-bind:href="movie.Trailer">Trailer</a>
+                        <ul>
+                            <li>Genre : <span x-text="movie.Genre"></span></li>
+                            <li>Duration : <span x-text="movie.Runtime"></span></li>
+                            <li>Rating : <span x-text="movie.Ratings"></span></li>
+                            <li>Cast : <span x-text="movie.Cast"></span></li>
+                        </ul>
+                        <!-- <button x-on:click="$store.order.addMovie(movie)">Add to Order</button> -->
+                    </div>
+                </template>
+            </div>
         </div>
 
     </div>
