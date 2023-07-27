@@ -17,13 +17,70 @@
 <body>
 
     <div x-data="checkout">
+        <div>
+            <h3 x-text="selectedMovie.Title"></h3>
+            <img x-bind:src="selectedMovie.Image" style="width: 200px;">
+        </div>
 
+        <div>
+            <h3>
+                Start :<span x-text="selectedTimeSlot.start"></span>
+            </h3>
+            <p>
+                Price : <span x-text="selectedTimeSlot.price"></span>
+            </p>
+        </div>
+
+        Total Price
+        <span x-text="totalPrice"></span>
+
+        <div>
+            <h3>Customer</h3>
+            <p>
+                Name : <input type="text" x-model="customer.name">
+            </p>
+            <p>
+                Email :<input type="text" x-model="customer.email">
+            </p>
+            <p>
+                Phone : <input type="text" x-model="customer.phone">
+            </p>
+        </div>
+
+        <button x-on:click="gotoPayment">Pay Now !!</button>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('checkout', () => ({
+                selectedMovie: null,
+                selectedTimeSlot: null,
+                selectedNumberOfSeats: null,
+                customer: null,
+                totalPrice: 0,
+                init() {
+                    console.log('Loaded!!!');
+                    this.selectedMovie = JSON.parse(localStorage.getItem('selected_movie'));
+                    this.selectedTimeSlot = JSON.parse(localStorage.getItem('selected_time_slot'));
+                    this.selectedNumberOfSeats = JSON.parse(localStorage.getItem('selected_number_of_seats'));
 
+                    this.customer = this.$store.customer;
+
+                    this.totalPrice = this.selectedTimeSlot.price * this.selectedNumberOfSeats;
+                },
+                gotoPayment(){
+                    this.$store.order = {
+                        movie: this.selectedMovie,
+                        timeSlot: this.selectedTimeSlot,
+                        customer: this.customer,
+                        numberOfSeats: this.selectedNumberOfSeats,
+                        totalPrice: this.totalPrice
+                    };
+
+                    localStorage.setItem('order', JSON.stringify(this.$store.order));
+
+                    window.location.href = 'payment.html';
+                }
             }))
         })
     </script>

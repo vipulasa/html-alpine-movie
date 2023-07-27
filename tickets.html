@@ -29,7 +29,31 @@
                 <li>Rating : <span x-text="selectedMovie.Ratings"></span></li>
                 <li>Cast : <span x-text="selectedMovie.Cast"></span></li>
             </ul>
-        
+        </div>
+
+        <div>
+            <h2>Tickets</h2>
+            <ul>
+                <template x-for="(timeSlot, index) in $store.location.timeSlots">
+                    <li>
+                        <div x-on:click="selectTimeSlot(timeSlot)">
+                            Start Time : <span x-text="timeSlot.start"></span>
+                            Price : <span x-text="timeSlot.price"></span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+
+            <div x-show="selectedTimeSlot">
+                <label for="number_of_seats">Number Of Seats</label>
+                <input type="number" name="number_of_seats" id="number_of_seats" x-model="selectedNumberOfSeats">
+            </div>
+
+            <button x-on:click="goToCheckout">
+                Go to checkout
+            </button>
+
+            
         </div>
 
 
@@ -39,9 +63,23 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('tickets', () => ({
                 selectedMovie: null,
+                selectedTimeSlot: null,
+                selectedNumberOfSeats: null,
                 init(){
                     console.log('Loaded!!!');
                     this.selectedMovie = JSON.parse(localStorage.getItem('selected_movie'));
+
+                    if(!this.selectedMovie){
+                        window.location.href = 'index.html';
+                    }
+                },
+                selectTimeSlot(timeSlot){
+                    this.selectedTimeSlot = timeSlot;
+                    localStorage.setItem('selected_time_slot', JSON.stringify(timeSlot));                
+                },
+                goToCheckout(){
+                    localStorage.setItem('selected_number_of_seats', JSON.stringify(this.selectedNumberOfSeats));
+                    window.location.href = 'checkout.html';
                 }
             }))
         })

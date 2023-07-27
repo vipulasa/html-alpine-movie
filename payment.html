@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie X</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
+
     <script src="https://unpkg.com/alpinejs" defer></script>
 
     <script src="store/customer.js"></script>
@@ -17,13 +19,26 @@
 <body>
 
     <div x-data="payment">
+        <label for="credit_card">Credit Card</label>
+        <input type="text" x-model="cardNumber" x-mask="9999-9999-9999-9999">
 
+        <button x-on:click="gotoComplete">Complete</button>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('payment', () => ({
+                order : null,
+                cardNumber: null,
+                init(){
+                    this.order = JSON.parse(localStorage.getItem('order'));
+                },
+                gotoComplete(){
+                    this.order.creditCard = this.cardNumber;
 
+                    localStorage.setItem('order', JSON.stringify(this.order));
+                    window.location.href = 'thank-you.html';
+                }
             }))
         })
     </script>

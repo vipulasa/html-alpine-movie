@@ -16,14 +16,39 @@
 
 <body>
 
+    <h1>Thank you !!!</h1>
     <div x-data="thankYou">
-
+        <table>
+            <tr>
+                <td>Movie</td>
+                <td>:</td>
+                <td x-text="order.movie.Title"></td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td>:</td>
+                <td x-text="order.timeSlot.start"></td>
+            </tr>
+            <tr>
+                <td>Seats</td>
+                <td>:</td>
+                <td x-text="order.numberOfSeats"></td>
+            </tr>
+            <tr>
+                <td>Total Price</td>
+                <td>:</td>
+                <td x-text="order.totalPrice"></td>
+            </tr>
+        </table>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('thankYou', () => ({
-
+                order: null,
+                init() {
+                    this.order = JSON.parse(localStorage.getItem('order'));
+                }
             }))
         })
     </script>
