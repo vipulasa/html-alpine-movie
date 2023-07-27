@@ -32,10 +32,10 @@
         </div>
 
         <div>
-            <h2>Tickets</h2>
+            <h2 x-on:click="showTickets = !showTickets">Tickets</h2>
             <ul>
                 <template x-for="(timeSlot, index) in $store.location.timeSlots">
-                    <li>
+                    <li x-show="showTickets || selectedTimeSlot == timeSlot">
                         <div x-on:click="selectTimeSlot(timeSlot)">
                             Start Time : <span x-text="timeSlot.start"></span>
                             Price : <span x-text="timeSlot.price"></span>
@@ -62,6 +62,7 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('tickets', () => ({
+                showTickets: false,
                 selectedMovie: null,
                 selectedTimeSlot: null,
                 selectedNumberOfSeats: null,
@@ -75,6 +76,7 @@
                 },
                 selectTimeSlot(timeSlot){
                     this.selectedTimeSlot = timeSlot;
+                    this.showTickets = false;
                     localStorage.setItem('selected_time_slot', JSON.stringify(timeSlot));                
                 },
                 goToCheckout(){
