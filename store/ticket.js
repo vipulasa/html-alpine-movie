@@ -1,0 +1,1 @@
+console.info('Ticket store loaded!');
