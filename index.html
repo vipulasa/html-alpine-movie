@@ -25,7 +25,7 @@
                 <li>Address : <span x-text="$store.location.address"></span></li>
                 <li>Phone : <span x-text="$store.location.phone"></span></li>
                 <li>Total Seats : <span x-text="$store.location.seats"></span></li>
-            </dl>
+                </dl>
         </div>
 
 
@@ -44,7 +44,7 @@
                             <li>Rating : <span x-text="movie.Ratings"></span></li>
                             <li>Cast : <span x-text="movie.Cast"></span></li>
                         </ul>
-                        <!-- <button x-on:click="$store.order.addMovie(movie)">Add to Order</button> -->
+                        <button x-on:click="selectMovie(movie)">Book Now</button>
                     </div>
                 </template>
             </div>
@@ -55,7 +55,11 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('home', () => ({
-
+                selectMovie(movie) {
+                    console.log(movie);
+                    localStorage.setItem('selected_movie', JSON.stringify(movie));
+                    window.location.href = 'tickets.html';
+                }
             }))
         })
     </script>

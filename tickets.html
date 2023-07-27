@@ -18,12 +18,31 @@
 
     <div x-data="tickets">
 
+        <div>
+            <h3 x-text="selectedMovie.Title"></h3>
+            <img x-bind:src="selectedMovie.Image" style="width: 200px;">
+            <p x-text="selectedMovie.Description"></p>
+            <a x-bind:href="selectedMovie.Trailer">Trailer</a>
+            <ul>
+                <li>Genre : <span x-text="selectedMovie.Genre"></span></li>
+                <li>Duration : <span x-text="selectedMovie.Runtime"></span></li>
+                <li>Rating : <span x-text="selectedMovie.Ratings"></span></li>
+                <li>Cast : <span x-text="selectedMovie.Cast"></span></li>
+            </ul>
+        
+        </div>
+
+
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('tickets', () => ({
-
+                selectedMovie: null,
+                init(){
+                    console.log('Loaded!!!');
+                    this.selectedMovie = JSON.parse(localStorage.getItem('selected_movie'));
+                }
             }))
         })
     </script>
